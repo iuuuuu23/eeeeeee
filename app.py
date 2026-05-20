@@ -50,7 +50,6 @@ def prepare_input_row(date_text, amount, customer_id, transaction_type):
 @app.route("/", methods=["GET", "POST"])
 def index():
     data = load_financial_dataset()
-    summary = summarize_anomalies(data)
     result = None
     input_values = {
         "date": datetime.now().strftime("%Y-%m-%d"),
@@ -105,7 +104,9 @@ def index():
                 ["date", "amount", "customer_id", "transaction_type", "z_score"],
             ].sort_values("z_score", ascending=False).head(10).to_dict(orient="records"),
         }
-
+summary = summarize_anomalies(analysis_data)
+    else:
+        summary = summarize_anomalies(data)
     preview = data.head(10).to_dict(orient="records")
     transaction_types = list(TRANSACTION_TYPE_MAP.keys())
 

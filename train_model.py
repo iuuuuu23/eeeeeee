@@ -21,7 +21,7 @@ features = df.select_dtypes(include=['int64', 'float64'])
 model = IsolationForest(
     n_estimators=100,
     contamination=0.05,
-    random_state=42
+    random_state=45
 )
 
 # Train model
